@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎂</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #12002f, #31004e, #090b2c);
+}
+
+.container {
+    width: 100%;
+    max-width: 550px;
+    padding: 40px 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 50px rgba(206, 80, 255, 0.2);
+    animation: appear 1.2s ease;
+}
+
+@keyframes appear {
+    from {opacity: 0; transform: translateY(40px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.emoji {
+    font-size: 75px;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% {transform: translateY(-15px) rotate(5deg);}
+}
+
+h1 {
+    margin: 20px 0;
+    font-size: clamp(30px, 8vw, 48px);
+    background: linear-gradient(90deg, #ffb6e6, #fff, #d8a5ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.name {
+    font-size: 35px;
+    color: #ffb5e8;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px #ff4db8;
+}
+
+.message {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #eee1ff;
+    margin-bottom: 25px;
+}
+
+button {
+    padding: 14px 27px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #400047;
+    background: linear-gradient(90deg, #ff9de2, #e8a9ff);
+    box-shadow: 0 5px 25px rgba(255,100,200,0.3);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 30px #ff8bdf;
+}
+
+#surprise {
+    display: none;
+    margin-top: 25px;
+    font-size: 21px;
+    color: #ffd5ef;
+    animation: appear 1s ease;
+}
+
+.footer {
+    margin-top: 30px;
+    font-size: 12px;
+    color: #cbb5e9;
+}
+
+.stars {
+    position: fixed;
+    font-size: 20px;
+    animation: sparkle 4s infinite;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    0%,100% {opacity: 0.2; transform: scale(0.7);}
+    50% {opacity: 1; transform: scale(1.2);}
+}
+
+@media(max-width: 480px) {
+    .container {padding: 30px 20px;}
+    .emoji {font-size: 60px;}
+    .message {font-size: 14px;}
+    button {font-size: 14px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="emoji">🎂</div>
+
+    <h1>Happy Birthday!</h1>
+
+    <!-- CHANGE THE NAME HERE -->
+    <div class="name">Your Name ❤️</div>
+
+    <p class="message">
+        Today is your special day! 🥳<br>
+        May your life be filled with endless happiness,
+        beautiful memories, laughter and success.
+        May every dream you wish for come true.
+        Keep shining and being amazing! ✨
+        <br><br>
+        You deserve all the happiness in the world! 💖
+    </p>
+
+    <button onclick="celebrate()">
+        🎉 Click for a Surprise
+    </button>
+
+    <div id="surprise">
+        🎊 Once again, Happy Birthday! 🎊
+        <br><br>
+        Sending you lots of love and good wishes! ❤️
+    </div>
+
+    <div class="footer">
+        Made with ❤️ just for you
+    </div>
+
+</div>
+
+<script>
+
+// Initial confetti
+window.onload = () => {
+    setTimeout(celebrate, 700);
+};
+
+// Birthday celebration
+function celebrate() {
+
+    document.getElementById("surprise").style.display = "block";
+
+    let duration = 5 * 1000;
+    let end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            spread: 100,
+            startVelocity: 35,
+            origin: { x: Math.random(), y: 0.5 },
+            colors: ['#ff69b4', '#ffffff', '#d8a5ff', '#ffd700']
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+}
+
+// Floating stars
+for (let i = 0; i < 20; i++) {
+    let star = document.createElement("div");
+    star.className = "stars";
+    star.innerHTML = "✨";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.animationDelay = Math.random() * 4 + "s";
+    document.body.appendChild(star);
+}
+
+</script>
+
+</body>
+</html>
